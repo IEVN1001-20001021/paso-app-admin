@@ -1,0 +1,98 @@
+<div class="flex h-screen">
+  <div class="flex-1 ml-64 p-10 bg-gray-100">
+    <h2 class="text-3xl font-semibold mb-6">Gestión de Pedidos</h2>
+
+    <!-- Estadísticas -->
+    <div class="grid grid-cols-5 gap-4 mb-6">
+      <div
+        *ngFor="let stat of stats"
+        class="col-span-1 bg-white p-6 rounded-lg shadow-md text-center"
+      >
+        <h3 class="text-2xl font-bold">{{ stat.value }}</h3>
+        <p class="text-gray-600">{{ stat.label }}</p>
+      </div>
+    </div>
+
+    <!-- Gráficas -->
+    <div class="grid grid-cols-2 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h4 class="font-bold mb-2">Pedidos por Tienda</h4>
+        <canvas id="pedidosPorTiendaChart"></canvas>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h4 class="font-bold mb-2">Pedidos por Ciudad</h4>
+        <canvas id="pedidosPorCiudadChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="mt-10">
+      <div class="mb-4 flex flex-wrap gap-4">
+        <input
+          type="text"
+          placeholder="Buscar por estado"
+          [(ngModel)]="filters.estado"
+          class="p-2 border rounded w-48"
+        />
+        <input
+          type="number"
+          placeholder="Usuario ID"
+          [(ngModel)]="filters.usuario_id"
+          class="p-2 border rounded w-48"
+        />
+        <input
+          type="number"
+          placeholder="Tienda ID"
+          [(ngModel)]="filters.tienda_id"
+          class="p-2 border rounded w-48"
+        />
+        <input
+          type="text"
+          placeholder="Nombre del producto"
+          [(ngModel)]="filters.productoNombre"
+          class="p-2 border rounded w-48"
+        />
+      </div>
+
+      <!-- Lista de Pedidos -->
+      <div class="overflow-x-auto bg-white rounded-lg shadow-md">
+        <table class="table-auto w-full">
+          <thead>
+            <tr class="bg-gray-200">
+              <th class="p-3 text-left">#ID</th>
+              <th class="p-3 text-left">Usuario</th>
+              <th class="p-3 text-left">Tienda</th>
+              <th class="p-3 text-left">Estado</th>
+              <th class="p-3 text-left">Fecha</th>
+              <th class="p-3 text-left">Total</th>
+              <th class="p-3 text-left">Productos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pedido of pedidos" class="border-t">
+              <td class="p-3">{{ pedido.id }}</td>
+              <td class="p-3">{{ pedido.usuario_id }}</td>
+              <td class="p-3">{{ pedido.tienda_id }}</td>
+              <td class="p-3">{{ pedido.estado }}</td>
+              <td class="p-3">{{ pedido.fecha_pedido | date : "short" }}</td>
+              <td class="p-3">{{ pedido.total | currency }}</td>
+              <td class="p-3">
+                <ul *ngIf="pedido?.detalles?.productDetails?.length">
+                  <li *ngFor="let producto of pedido.detalles.productDetails">
+                    {{ producto.nombre }} x
+                    {{
+                      getCantidadProducto(
+                        pedido.detalles.productIds,
+                        producto.id
+                      )
+                    }}
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>  
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

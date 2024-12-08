@@ -1,0 +1,117 @@
+<div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-center mb-4">Registrar Nueva Tienda</h2>
+  <form (ngSubmit)="onSubmit()" #shopForm="ngForm">
+    <div class="mb-4">
+      <label for="name" class="block text-sm font-medium text-gray-700"
+        >Nombre de la Tienda</label
+      >
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="shop.name"
+        required
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+      />
+    </div>
+    <div class="mb-4">
+      <label for="address" class="block text-sm font-medium text-gray-700"
+        >Dirección</label
+      >
+      <input
+        type="text"
+        id="address"
+        name="address"
+        [(ngModel)]="shop.address"
+        required
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+      />
+    </div>
+    <div class="mb-4">
+      <label for="state" class="block text-sm font-medium text-gray-700"
+        >Estado</label
+      >
+      <input
+        type="text"
+        id="state"
+        name="state"
+        [(ngModel)]="shop.state"
+        value="Guanajuato"
+        readonly
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md bg-gray-100"
+      />
+    </div>
+    <div class="mb-4">
+      <label for="city" class="block text-sm font-medium text-gray-700"
+        >Ciudad</label
+      >
+      <select
+        id="city"
+        name="city"
+        [(ngModel)]="shop.city"
+        required
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+      >
+        <option value="" disabled selected>Selecciona una ciudad</option>
+        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+      </select>
+    </div>
+    <div class="mb-4">
+      <label for="schedule" class="block text-sm font-medium text-gray-700"
+        >Horarios</label
+      >
+      <input
+        type="text"
+        id="schedule"
+        name="schedule"
+        [(ngModel)]="shop.schedule"
+        required
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+      />
+    </div>
+    <div class="mb-4">
+      <label for="phone" class="block text-sm font-medium text-gray-700"
+        >Teléfono</label
+      >
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        [(ngModel)]="shop.phone"
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+      />
+    </div>
+    <div class="mb-4">
+      <label for="email" class="block text-sm font-medium text-gray-700"
+        >Correo Electrónico</label
+      >
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="shop.email"
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+      />
+    </div>
+    <div class="mb-4">
+      <label for="logo_url" class="block text-sm font-medium text-gray-700"
+        >Imagen (URL estática)</label
+      >
+      <input
+        type="text"
+        id="logo_url"
+        name="logo_url"
+        [(ngModel)]="shop.logo_url"
+        placeholder="https://drive.google.com/uc?export=view&id=1w5xOSyc8jszURZC2--Fh7iEjtsvu795I"
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+      />
+    </div>
+    <button
+      type="submit"
+      class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+      [disabled]="shopForm.invalid"
+    >
+      Registrar Tienda
+    </button>
+  </form>
+</div>

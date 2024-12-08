@@ -1,0 +1,115 @@
+<div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-center mb-4">Registrar Producto</h2>
+  <form (ngSubmit)="onSubmit()" #productForm="ngForm">
+    <div class="mb-4">
+      <label for="shop" class="block text-sm font-medium text-gray-700"
+        >Tienda</label
+      >
+      <select
+        id="shop"
+        name="shop"
+        [(ngModel)]="product.shop"
+        required
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+      >
+        <option *ngFor="let shop of shops" [value]="shop.id">
+          {{ shop.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label for="name" class="block text-sm font-medium text-gray-700"
+        >Nombre del Producto</label
+      >
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="product.name"
+        required
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="description" class="block text-sm font-medium text-gray-700"
+        >Descripción</label
+      >
+      <textarea
+        id="description"
+        name="description"
+        [(ngModel)]="product.description"
+        required
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+      ></textarea>
+    </div>
+
+    <div class="mb-4">
+      <label for="quantity" class="block text-sm font-medium text-gray-700"
+        >Cantidad</label
+      >
+      <input
+        type="number"
+        id="quantity"
+        name="quantity"
+        [(ngModel)]="product.quantity"
+        required
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="unit" class="block text-sm font-medium text-gray-700"
+        >Unidad de Medida</label
+      >
+      <select
+        id="unit"
+        name="unit"
+        [(ngModel)]="product.unit"
+        required
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+      >
+        <option value="kg">Kilogramos</option>
+        <option value="u">Unidades</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label for="storePrice" class="block text-sm font-medium text-gray-700"
+        >Precio Tienda</label
+      >
+      <input
+        type="number"
+        id="storePrice"
+        name="storePrice"
+        [(ngModel)]="product.storePrice"
+        required
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="image" class="block text-sm font-medium text-gray-700"
+        >Imagen</label
+      >
+      <input
+        type="text"
+        id="image"
+        name="image"
+        [(ngModel)]="product.image"
+        [value]="defaultImageUrl"
+        readonly
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+      [disabled]="productForm.invalid"
+    >
+      Registrar Producto
+    </button>
+  </form>
+</div>

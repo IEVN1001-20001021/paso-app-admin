@@ -1,0 +1,136 @@
+<div class="flex h-screen">
+  <div class="flex-1 ml-64 p-10 bg-gray-100">
+    <h2 class="text-3xl font-semibold mb-6">Productos Dashboard</h2>
+
+    <!-- Botón de Ventas -->
+    <div class="mb-4">
+      <button
+        (click)="toggleView()"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Ventas
+      </button>
+    </div>
+
+    <!-- Vista de Tabla -->
+    <div *ngIf="!isSalesView">
+      <div class="mb-4">
+        <div class="flex justify-between items-center">
+          <h4 class="text-xl font-bold">Productos</h4>
+        </div>
+        <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+          <table class="min-w-full table-auto">
+            <thead>
+              <tr class="bg-gray-200">
+                <th class="px-4 py-2 text-left">
+                  <input
+                    type="text"
+                    placeholder="Buscar Nombre"
+                    class="px-2 py-1 rounded"
+                    [(ngModel)]="filters.nombre"
+                    (ngModelChange)="applyFilters()"
+                  />
+                </th>
+                <th class="px-4 py-2 text-left">
+                  <button (click)="sortByPrice()" class="flex items-center">
+                    Precio
+                    <i class="fas" [ngClass]="sortPriceIcon"></i>
+                  </button>
+                </th>
+                <th class="px-4 py-2 text-left">
+                  <button (click)="sortByQuantity()" class="flex items-center">
+                    Cantidad
+                    <i class="fas" [ngClass]="sortQuantityIcon"></i>
+                  </button>
+                </th>
+                <th class="px-4 py-2 text-left">
+                  <select
+                    [(ngModel)]="filters.unidadMedida"
+                    (ngModelChange)="applyFilters()"
+                  >
+                    <option value="">Todas</option>
+                    <option value="u">Unidades</option>
+                    <option value="K">Kilogramos</option>
+                  </select>
+                </th>
+                <th class="px-4 py-2 text-left">
+                  <button
+                    (click)="sortByPriceTienda()"
+                    class="flex items-center"
+                  >
+                    Precio Tienda
+                    <i class="fas" [ngClass]="sortPriceTiendaIcon"></i>
+                  </button>
+                </th>
+                <th class="px-4 py-2 text-left">
+                  <input
+                    type="text"
+                    placeholder="Fecha"
+                    class="px-2 py-1 rounded"
+                    [(ngModel)]="filters.fecha"
+                    (ngModelChange)="applyFilters()"
+                    (click)="showCalendar = !showCalendar"
+                  />
+                  <div *ngIf="showCalendar">
+                    <input
+                      type="date"
+                      [(ngModel)]="filters.fecha"
+                      (change)="applyDateFilter()"
+                    />
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let producto of productos | filterProducts : filters">
+                <td class="px-4 py-2">{{ producto.nombre }}</td>
+                <td class="px-4 py-2">
+                  {{ producto.precio_publico | currency }}
+                </td>
+                <td class="px-4 py-2">{{ producto.cantidad }}</td>
+                <td class="px-4 py-2">{{ producto.unidad_medida }}</td>
+                <td class="px-4 py-2">
+                  {{ producto.precio_tienda | currency }}
+                </td>
+                <td class="px-4 py-2">{{ producto.fecha_creacion | date }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vista de Ventas (Gráficas y KPIs) -->
+    <div *ngIf="isSalesView">
+      <div class="grid grid-cols-3 gap-6">
+        <!-- Gráfico de barras horizontales -->
+        <div class="col-span-2 bg-white p-6 rounded-lg shadow-md">
+          <h4 class="text-xl font-semibold mb-4">Productos Más Vendidos</h4>
+          <div style="width: 100%; height: 400px">
+            <canvas id="productosVendidosChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Tarjetas KPI -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h4 class="text-xl font-semibold mb-4">KPIs de Pedidos</h4>
+          <div class="mb-4">
+            <p class="text-lg">
+              Pedidos Hoy: <strong>{{ pedidosHoy }}</strong>
+            </p>
+          </div>
+          <div class="mb-4">
+            <p class="text-lg">
+              Pedidos Esta Semana: <strong>{{ pedidosSemana }}</strong>
+            </p>
+          </div>
+          <div>
+            <p class="text-lg">
+              Pedidos Este Mes: <strong>{{ pedidosMes }}</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="flex h-screen">
+  <div class="flex-1 ml-64 p-10 bg-gray-100">
+    <h2 class="text-3xl font-semibold mb-6">Administración Dashboard</h2>
+    <div class="grid grid-cols-5 gap-4 mb-6">
+      <div class="col-span-1 bg-white p-6 rounded-lg shadow-md text-center">
+        <h3 class="text-2xl font-bold">{{ stats.totalPedidos }}</h3>
+        <p class="text-gray-600">Total de pedidos</p>
+      </div>
+      <div class="col-span-1 bg-white p-6 rounded-lg shadow-md text-center">
+        <h3 class="text-2xl font-bold">{{ stats.pedidosEnProceso }}</h3>
+        <p class="text-gray-600">Pedidos en proceso</p>
+      </div>
+      <div class="col-span-1 bg-white p-6 rounded-lg shadow-md text-center">
+        <h3 class="text-2xl font-bold">{{ stats.pedidosCompletados }}</h3>
+        <p class="text-gray-600">Pedidos completados</p>
+      </div>
+      <div class="col-span-1 bg-white p-6 rounded-lg shadow-md text-center">
+        <h3 class="text-2xl font-bold">{{ stats.totalUsuarios }}</h3>
+        <p class="text-gray-600">Usuarios activos</p>
+      </div>
+      <div class="col-span-1 bg-white p-6 rounded-lg shadow-md text-center">
+        <h3 class="text-2xl font-bold">{{ stats.nuevosUsuarios }}</h3>
+        <p class="text-gray-600">Nuevos usuarios</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h4 class="font-bold mb-2">Pedidos por Tienda</h4>
+        <canvas id="pedidosPorTiendaChart" style="height: 400px"></canvas>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h4 class="font-bold mb-2">Pedidos por Ciudad</h4>
+        <canvas id="pedidosPorCiudadChart" style="height: 400px"></canvas>
+      </div>
+    </div>
+
+    <div class="flex mt-6 space-x-4">
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Agregar producto
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Generar Reporte
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Ver todos los pedidos
+      </button>
+    </div>
+  </div>
+</div>
